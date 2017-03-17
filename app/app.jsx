@@ -5,6 +5,12 @@ var Main = require('Main');
 var Weather = require('Weather');
 var About = require('About');
 var Examples = require('Examples');
+
+//Load foundation library
+require('style!css!foundation-sites/dist/foundation.min.css')//to style these html we need embed the chain with style loader
+//firup foundation
+$(document).foundation();
+
 //common DOM method
 ReactDOM.render(
 <Router history={hashHistory}>
