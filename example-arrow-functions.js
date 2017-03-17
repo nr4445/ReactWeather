@@ -1,37 +1,15 @@
 var names = ['John','Matt','Ben'];
-//
-// names.forEach(function (name) {
-//   console.log('forEach',name);
-// })
-//
-// names.forEach((name) =>{
-//   console.log('arrowFunc',name);
-//   console.log('something else');
-// });
-//
-// names.forEach((name) => console.log(name));
-
-// var returnMe = (name) => name + '!';
-// console.log(returnMe('Naresh'));
 
 var person = {
   name: 'Naresh',
   greet: function (){
-    names.forEach((name) => {
+    name = 'LocalNaresh',//if I declare like  name: 'LocalNaresh' then it is printing 'undefined' inplace of 'this.name'
+    names.forEach(function(name){
+      console.log(this === global); // Will print true with ES5 function
       console.log(this.name + ' says hai to '+ name)
     });
   }
 };
-
-// var person = {
-//   name: 'Naresh',
-//   greet: function (){
-//     names.forEach(function(name){
-//       console.log(this === global); // Will print true with ES5 function
-//       console.log(this+ 'says hai to '+ name)
-//     });
-//   }
-// };
 
 person.greet();
 
@@ -50,7 +28,7 @@ person.greet();
 //
 // console.log(addStatement(4, 7));
 //
-// //add expression
+// //add expression based on ES6
 //
 // var addExpression = (a,b) => a + b;
 // console.log(addExpression(2,3));
