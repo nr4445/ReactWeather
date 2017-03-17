@@ -1,15 +1,20 @@
-var express =require('express');
+var express = require('express');
 
-//create our app
+// Create our app
 var app = express();
 const PORT = process.env.PORT || 3000;
 
 //it's the commo patteren for express middleware, that it do with every request
-app.use(function (req, res){
-
+app.use(function (req, res, next){
+  if (req.headers['x-forwarded-proto'] === 'http') {
+    next();
+  } else {
+    res.redirect('http://'+req.hostname+req.url);
+  }
 });
 
 app.use(express.static('public'));
-app.listen(PORT, function(){
-  console.log('Express server is up on port '+ PORT);
+
+app.listen(PORT, function () {
+  console.log('Express server is up on port ' + PORT);
 });
