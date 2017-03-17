@@ -14,24 +14,24 @@ var names = ['John','Matt','Ben'];
 // var returnMe = (name) => name + '!';
 // console.log(returnMe('Naresh'));
 
-// var person = {
-//   name: 'Naresh',
-//   greet: function (){
-//     names.forEach((name) => {
-//       console.log(this.name + 'says hai to '+ name)
-//     });
-//   }
-// };
-
 var person = {
   name: 'Naresh',
   greet: function (){
-    names.forEach(function(name){
-      console.log(this === global); // Will print true with ES5 function
-      console.log(this+ 'says hai to '+ name)
+    names.forEach((name) => {
+      console.log(this.name + ' says hai to '+ name)
     });
   }
 };
+
+// var person = {
+//   name: 'Naresh',
+//   greet: function (){
+//     names.forEach(function(name){
+//       console.log(this === global); // Will print true with ES5 function
+//       console.log(this+ 'says hai to '+ name)
+//     });
+//   }
+// };
 
 person.greet();
 
