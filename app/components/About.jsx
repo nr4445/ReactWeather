@@ -19,7 +19,7 @@ var About = (props) => {
   return (
     <div>
 
-      <h2 className="text-center">Welcome to About page</h2>
+      <h2 className="text-center page-title">Welcome to About page</h2>
     </div>
 
   )

@@ -11,6 +11,9 @@ require('style!css!foundation-sites/dist/foundation.min.css')//to style these ht
 //firup foundation
 $(document).foundation();
 
+//App css
+require('!style!css!applicationStyles')
+
 //common DOM method
 ReactDOM.render(
 <Router history={hashHistory}>
