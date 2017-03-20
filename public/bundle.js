@@ -24963,26 +24963,19 @@
 	    Link = _require.Link,
 	    IndexLink = _require.IndexLink;
 
-	// var Nav = React.createClass({
-	//   render: function(){
-	//     return(
-	//       <div>
-	//         <h2>Nav Component</h2>
-	//         <IndexLink to="/" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Get Weather</IndexLink>
-	//         <Link to="/about" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>About</Link>
-	//         <Link to="/examples" activeClassName="active" activeStyle={{fontWeight: 'bold'}}>Examples</Link>
-	//       </div>
-	//
-	//     );
-	//   }
-	// });
-
 	var Nav = React.createClass({
 	  displayName: 'Nav',
 
 	  onSearch: function onSearch(e) {
 	    e.preventDefault();
-	    alert("not yet wired up!");
+	    var location = this.refs.search.value;
+	    //encoding location
+	    var encodedLocation = encodeURIComponent(location);
+
+	    if (location.length > 0) {
+	      this.refs.search.value = '';
+	      window.location.hash = '#/?location=' + encodedLocation;
+	    }
 	  },
 
 	  render: function render() {
@@ -24998,7 +24991,7 @@
 	          React.createElement(
 	            'li',
 	            { className: 'menu-text' },
-	            'React Weather'
+	            'React Weather App'
 	          ),
 	          React.createElement(
 	            'li',
@@ -25041,7 +25034,7 @@
 	            React.createElement(
 	              'li',
 	              null,
-	              React.createElement('input', { type: 'search', placeholder: 'Search weather by city' })
+	              React.createElement('input', { type: 'search', placeholder: 'Search weather by city', ref: 'search' })
 	            ),
 	            React.createElement(
 	              'li',
@@ -25054,6 +25047,7 @@
 	    );
 	  }
 	});
+
 		module.exports = Nav;
 
 /***/ },
@@ -25081,7 +25075,9 @@
 
 	    this.setState({
 	      isLoading: true,
-	      errorMessage: undefined
+	      errorMessage: undefined,
+	      location: undefined,
+	      temp: undefined
 	    });
 
 	    openWeatherMap.getTemp(location).then(function (temp) {
@@ -25096,6 +25092,22 @@
 	        errorMessage: e.message
 	      });
 	    });
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var location = this.props.location.query.location;
+
+	    if (location && location.length > 0) {
+	      this.handleSearch(location);
+	      window.location.hash = '#/';
+	    }
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+	    var location = newProps.location.query.location;
+
+	    if (location && location.length > 0) {
+	      this.handleSearch(location);
+	      window.location.hash = '#/';
+	    }
 	  },
 	  render: function render() {
 	    var _state = this.state,
